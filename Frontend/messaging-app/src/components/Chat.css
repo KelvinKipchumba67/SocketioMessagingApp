@@ -1,0 +1,30 @@
+.chat-container {
+  display: flex;
+  height: 80vh;
+  background-color: #1f2937;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    height: calc(100vh - 2rem);
+    border-radius: 0;
+    margin: -1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .chat-container {
+    flex-direction: column;
+  }
+}

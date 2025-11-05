@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSocketContext } from './SocketContext';
 import { JoinChat } from './components/JoinChat';
 import { Chat } from './components/Chat';
+import './App.css';
 
 function App() {
   const { isConnected } = useSocketContext();
@@ -14,7 +15,9 @@ function App() {
       ) : (
         <Chat />
       )}
-      <p>Connection Status: {isConnected ? 'Connected' : 'Disconnected'}</p>
+      <p className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
+        Connection Status: {isConnected ? 'Connected' : 'Disconnected'}
+      </p>
     </div>
   );
 }

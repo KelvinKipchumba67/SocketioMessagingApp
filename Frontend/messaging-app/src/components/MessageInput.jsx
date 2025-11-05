@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSocketContext } from '../SocketContext';
+import './MessageInput.css';
 
 export const MessageInput = () => {
   const [message, setMessage] = useState('');
@@ -46,8 +47,8 @@ export const MessageInput = () => {
   }).map(username => username);
 
   return (
-    <div className="p-4 bg-gray-800 border-t border-gray-700">
-      <div className="h-5 text-sm text-gray-400 italic mb-1">
+    <div className="message-input-container">
+      <div className="typing-indicator">
         {otherTypingUsers.length > 0 && (
           <em>
             {otherTypingUsers.join(', ')}
@@ -55,7 +56,7 @@ export const MessageInput = () => {
           </em>
         )}
       </div>
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="message-form">
         <input
           type="text"
           value={message}
@@ -64,11 +65,11 @@ export const MessageInput = () => {
             handleTyping();
           }}
           placeholder="Type a message..."
-          className="flex-1 p-3 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="message-input"
         />
         <button
           type="submit"
-          className="p-3 px-5 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
+          className="send-button"
         >
           Send
         </button>

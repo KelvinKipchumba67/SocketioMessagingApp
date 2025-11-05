@@ -2,12 +2,13 @@ import React from 'react';
 import { UserList } from './UserList';
 import { MessageWindow } from './MessageWindow';
 import { MessageInput } from './MessageInput';
+import './Chat.css';
 
 export const Chat = () => {
   return (
-    <div className="flex h-[80vh] bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+    <div className="chat-container">
       <UserList />
-      <div className="flex flex-col flex-1">
+      <div className="chat-main">
         <MessageWindow />
         <MessageInput />
       </div>

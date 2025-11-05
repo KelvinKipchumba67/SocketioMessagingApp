@@ -1,19 +1,20 @@
 import React from 'react';
 import { useSocketContext } from '../SocketContext';
+import './UserList.css';
 
 export const UserList = () => {
   const { users, socket } = useSocketContext();
 
   return (
-    <div className="w-1/4 bg-gray-800 border-r border-gray-700 p-4 overflow-y-auto">
-      <h3 className="text-lg font-semibold text-gray-300 mb-3">
+    <div className="user-list">
+      <h3>
         Online Users ({users.length})
       </h3>
-      <ul className="flex flex-col gap-2">
+      <ul className="users-container">
         {users.map((user) => (
-          <li key={user.id} className="text-gray-400 p-2 rounded-md truncate">
+          <li key={user.id} className="user-item">
             {user.username}
-            {user.id === socket.id && <span className="text-blue-400 text-sm"> (You)</span>}
+            {user.id === socket.id && <span className="you-indicator"> (You)</span>}
           </li>
         ))}
       </ul>

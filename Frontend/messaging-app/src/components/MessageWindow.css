@@ -1,0 +1,65 @@
+.message-window {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #111827;
+}
+
+.message {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+@media (max-width: 640px) {
+  .message {
+    max-width: 80%;
+  }
+  
+  .message-window {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+}
+
+.message.system {
+  width: 100%;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-style: italic;
+  max-width: none;
+}
+
+.message.my-message {
+  background-color: #2563eb;
+  color: white;
+  align-self: flex-end;
+}
+
+.message.other-message {
+  background-color: #374151;
+  color: #e5e7eb;
+  align-self: flex-start;
+}
+
+.sender-name {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.message-timestamp {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-left: 0.5rem;
+}
+
+.loading-message {
+  padding: 1rem;
+  color: #9ca3af;
+}
