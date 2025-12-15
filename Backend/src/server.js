@@ -41,7 +41,18 @@ const allowedOrigins = parseAllowedOrigins();
 const isOriginAllowed = (origin) => {
   if (!origin) return true; // non-browser clients (curl, health checks)
   const normalized = normalizeOrigin(origin);
-  return allowedOrigins.includes(normalized);
+  if (allowedOrigins.includes(normalized)) return true;
+
+  // Helpful for Vercel deployments where the actual live URL may be a preview
+  // domain (e.g. https://my-app-git-main-<hash>.vercel.app).
+  try {
+    const { hostname } = new URL(normalized);
+    if (hostname && hostname.endsWith('.vercel.app')) return true;
+  } catch {
+    // Ignore URL parsing errors and fall through to false.
+  }
+
+  return false;
 };
 
 const io = new Server(server, {
