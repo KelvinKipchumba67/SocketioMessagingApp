@@ -13,16 +13,58 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
+
+const normalizeOrigin = (value) => {
+  if (!value || typeof value !== 'string') return value;
+  return value.endsWith('/') ? value.slice(0, -1) : value;
+};
+
+const parseAllowedOrigins = () => {
+  const fromEnv = (process.env.CLIENT_URL || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map(normalizeOrigin);
+
+  // Defaults cover local dev + the original Vercel domain.
+  const defaults = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://socketio-messaging-app.vercel.app',
+  ];
+
+  return Array.from(new Set([...defaults, ...fromEnv]));
+};
+
+const allowedOrigins = parseAllowedOrigins();
+
+const isOriginAllowed = (origin) => {
+  if (!origin) return true; // non-browser clients (curl, health checks)
+  const normalized = normalizeOrigin(origin);
+  return allowedOrigins.includes(normalized);
+};
+
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      if (isOriginAllowed(origin)) return callback(null, true);
+      return callback(new Error(`CORS blocked origin: ${origin}`), false);
+    },
     methods: ['GET', 'POST'],
     credentials: true,
   },
 });
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (isOriginAllowed(origin)) return callback(null, true);
+      return callback(new Error(`CORS blocked origin: ${origin}`), false);
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
