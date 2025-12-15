@@ -12,7 +12,7 @@ function App() {
     <div className="app-container">
       <header className="app-header">
         <div className="app-header__left">
-          <h1 className="app-title">Socket.io Messaging</h1>
+          <h1 className="app-title">Live Messaging</h1>
           <p className="app-subtitle">Real-time chat with Socket.io + React</p>
         </div>
       </header>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSocketContext } from '../SocketContext';
 import './MessageWindow.css';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://livemessagingapp.onrender.com';
 
 export const MessageWindow = () => {
   const { messages, setMessages, socket } = useSocketContext();
